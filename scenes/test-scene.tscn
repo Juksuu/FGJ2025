@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwn0ugwh2b4v1"]
+[gd_scene load_steps=4 format=3 uid="uid://dwn0ugwh2b4v1"]
 
 [ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="1_15d3c"]
 [ext_resource type="PackedScene" uid="uid://cgp5cmpbanyff" path="res://scenes/platform.tscn" id="2_l350t"]
+[ext_resource type="PackedScene" uid="uid://m60fj65bkhvk" path="res://scenes/bubble.tscn" id="3_wwbnv"]
 
 [node name="Test-scene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_15d3c")]
 position = Vector2(136, -150)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="Bubble" parent="." instance=ExtResource("3_wwbnv")]
+position = Vector2(136, -31)
+collision_layer = 3
+collision_mask = 3
+
 [node name="Platform" parent="." instance=ExtResource("2_l350t")]
-position = Vector2(62, 122)
+position = Vector2(210, 201)
+
+[connection signal="on_player_entered" from="Bubble" to="Player" method="_on_bubble_on_player_entered"]

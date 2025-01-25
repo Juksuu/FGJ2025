@@ -19,6 +19,7 @@ animations = [{
 [node name="Platform" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_evxg7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
