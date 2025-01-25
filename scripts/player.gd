@@ -3,16 +3,19 @@ class_name Player extends CharacterBody2D
 signal player_entering_new_level(levelPos: Vector2)
 
 @onready var animationPlayer = $AnimationPlayer
-
 @onready var sprite = $playerTexture
+@onready var marker = $marker
+@onready var kickArea = $KickArea
 
 @export var speed = 300.0
 @export var jump_speed = -400.0
 var bubbleTexture
 var isInBubble = false
-var hasBubble = true
+
 var Bubble = preload("res://scenes/bubble.tscn")
 var bubbleSpeed = 200
+
+var bubbleInUse: Bubble
 
 var currentLevel
 
@@ -22,23 +25,27 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func bubbleHit():
 	print("Player got hit by a bubble.")
 	isInBubble = true
+	bubbleInUse = null
 	animationPlayer.play("bubble")
 	await get_tree().create_timer(1.0).timeout
 	isInBubble = false
-	hasBubble = true
 	pass
 
 func spawnBubble():
-	hasBubble = false
+	if bubbleInUse:
+		bubbleInUse.destroy()
+		bubbleInUse = null
+		
 	var b = Bubble.instantiate()
-	b.start($marker.global_position, rotation)
+	b.start(marker.global_position, rotation, sprite.scale.x)
 	get_tree().root.add_child(b)
 	animationPlayer.play("blowBubble")
-	pass
+	
+	bubbleInUse = b
 
 func kick():
 	animationPlayer.play("punch")
-	var collisions = $KickArea.get_overlapping_bodies()
+	var collisions = kickArea.get_overlapping_bodies()
 	for i in collisions:
 		if i is Bubble:
 			i.getKicked()
@@ -62,7 +69,7 @@ func get_input():
 		velocity.y = jump_speed
 
 	# shoot input
-	if Input.is_action_just_pressed("bubble") and hasBubble:
+	if Input.is_action_just_pressed("bubble") and is_on_floor():
 		spawnBubble()
 
 	# Handle animation state changing
@@ -72,6 +79,8 @@ func get_input():
 		animationPlayer.play("bubble")
 	if direction != 0:
 		sprite.set_scale(Vector2(direction, 1))
+		marker.position.x = direction * 96
+		kickArea.position.x = direction * 65
 		if velocity.y == 0:
 			animationPlayer.play("walk")
 	elif direction == 0 and velocity.y == 0 and animationPlayer.is_playing() and resetAnims.find(animationPlayer.current_animation) != -1:
