@@ -9,8 +9,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_321cu"]
 shader = ExtResource("2_erv6f")
-shader_parameter/minHeight = null
-shader_parameter/maxHeight = 0.0
+shader_parameter/minHeight = 0.0
+shader_parameter/maxHeight = 1088.0
 shader_parameter/currentHeight = 0.0
 shader_parameter/minTex = ExtResource("4_tlbg1")
 shader_parameter/maxTex = ExtResource("5_kap8w")
@@ -27,37 +27,21 @@ shader_parameter/minTex = ExtResource("3_f4k2n")
 shader_parameter/maxTex = ExtResource("6_c2l5k")
 
 [node name="Camera" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_boy8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 
-[node name="SkyBase" type="TextureRect" parent="."]
+[node name="SkyBase" type="Sprite2D" parent="."]
+process_mode = 3
 material = SubResource("ShaderMaterial_321cu")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -544.0
-offset_right = 960.0
-offset_bottom = 544.0
-grow_horizontal = 2
-grow_vertical = 2
+scale = Vector2(1920, 1088)
 texture = SubResource("CanvasTexture_mmk2j")
 
-[node name="SkyGrad" type="TextureRect" parent="."]
+[node name="SkyGrad" type="Sprite2D" parent="."]
+process_mode = 3
 texture_filter = 1
 material = SubResource("ShaderMaterial_5rr8g")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -544.0
-offset_right = 960.0
-offset_bottom = 544.0
-grow_horizontal = 2
-grow_vertical = 2
+scale = Vector2(1920, 1088)
 texture = SubResource("CanvasTexture_mmk2j")

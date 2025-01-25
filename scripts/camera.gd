@@ -4,7 +4,7 @@ extends Node2D
 @onready var skyGrad = $SkyGrad
 
 @export var minHeight = 0
-@export var maxHeight = 1088
+@export var maxHeight = 0
 
 @export var transitionDuration = 1
 

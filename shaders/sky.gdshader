@@ -12,6 +12,6 @@ void fragment() {
 	vec4 minColor = texture(minTex, UV);
 	vec4 maxColor = texture(maxTex, UV);
 	
-	float mixValue = clamp(mix(minHeight, maxHeight, currentHeight), 0, 1);
-	COLOR = mix(minColor, maxColor, mixValue);
+	float heightPercent = (currentHeight - minHeight) / (maxHeight - minHeight);
+	COLOR = mix(minColor, maxColor, heightPercent);
 }
