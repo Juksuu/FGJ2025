@@ -19,30 +19,32 @@ func _physics_process(delta):
 	# Get the input direction.
 	var direction = Input.get_axis("left", "right")
 	velocity.x = direction * speed
-	
+
 	if isInBubble:
 		velocity.y = -speed
-	
+
 	move_and_slide()
-	
-	pass
-	
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	bubbleTexture = find_child("BubbleTexture")
 	print("bubble: ",bubbleTexture)
-	
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("bubble"):
 		isInBubble = !isInBubble
-		
-	if isInBubble:	
+
+	if isInBubble:
 		bubbleTexture.show()
 	else:
 		bubbleTexture.hide()
-		
-		
 	pass
+
+func on_new_level_entry() -> void:
+	self.set_collision_layer_value(3, false)
+	self.set_collision_mask_value(3, false)
+
+func on_new_level_entered() -> void:
+	self.set_collision_layer_value(3, true)
+	self.set_collision_mask_value(3, true)

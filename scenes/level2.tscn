@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=4 uid="uid://cc8lhm05iqfbp"]
+
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_113hm"]
+[ext_resource type="Texture2D" uid="uid://diietu3nasrqg" path="res://assets/sheet.png" id="1_x76j5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwk22"]
+texture = ExtResource("1_x76j5")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, 17.25, 30, 17.25, 30, 30, -29.25, 30)
+2:1/0 = 0
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.25, -29.5, 30, -30, 30, -17, -30, -17.5)
+1:1/3 = 3
+1:1/3/physics_layer_1/polygon_0/points = PackedVector2Array(-29.75, -17.75, 29.25, -17.25, 30, -30, -29.75, -29.5)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.5, -6.5, 29.5, -6.25, 29.5, 6.25, -30, 6)
+
+[sub_resource type="TileSet" id="TileSet_bg4s2"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 2
+physics_layer_1/collision_layer = 4
+sources/0 = SubResource("TileSetAtlasSource_xwk22")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3vka"]
+size = Vector2(129, 47)
+
+[node name="Level2" type="Node2D"]
+position = Vector2(-960, -544)
+script = ExtResource("1_113hm")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(0, -2)
+tile_map_data = PackedByteArray("AAAAAAkAAAABAAAAAAAAAAgAAAABAAAAAAAAAAcAAAABAAAAAAAAAAYAAAABAAAAAAAAAAUAAAABAAAAAAAAAAQAAAABAAAAAAAAAAMAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAAHAAAAAAABAAAAAAAIAAAAAAABAAAAAAAJAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAAOAAAAAAABAAAAAAAPAAAAAAABAAAAAAAQAAAAAAABAAAAAAARAAAAAAABAAAAAAASAAAAAAABAAAAAAATAAAAAAABAAAAAAAUAAAAAAABAAAAAAAVAAAAAAABAAAAAAAWAAAAAAABAAAAAAAXAAAAAAABAAAAAAAYAAAAAAABAAAAAAAZAAAAAAABAAAAAAAAAAoAAAABAAAAAAAAAAsAAAABAAAAAAAAAAwAAAABAAAAAAAAAA0AAAABAAAAAAAAAA4AAAABAAAAAAAAAA8AAAABAAAAAAAAABAAAAABAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAABAAAAAAAaABAAAAABAAAAAAAdABAAAAABAAAAAAAdAAAAAAABAAAAAAAdAAEAAAABAAAAAAAdAAIAAAABAAAAAAAdAAMAAAABAAAAAAAdAAQAAAABAAAAAAAdAAUAAAABAAAAAAAdAAYAAAABAAAAAAAdAAcAAAABAAAAAAAdAAgAAAABAAAAAAAdAAkAAAABAAAAAAAdAAoAAAABAAAAAAAdAAwAAAABAAAAAAAdAA0AAAABAAAAAAAdAA4AAAABAAAAAAAdAA8AAAABAAAAAAAaAAAAAAABAAAAAAAdAAsAAAABAAAAAAAbAAAAAAABAAAAAAAcAAAAAAABAAAAAAAbABAAAAABAAEAAwAcABAAAAABAAEAAwA=")
+tile_set = SubResource("TileSet_bg4s2")
+rendering_quadrant_size = 64
+
+[node name="LevelEntry" type="Area2D" parent="."]
+position = Vector2(1791, 1033)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEntry"]
+position = Vector2(0.5, 29.5)
+shape = SubResource("RectangleShape2D_d3vka")
+
+[connection signal="body_entered" from="LevelEntry" to="." method="_on_level_entry_body_entered"]
+[connection signal="body_exited" from="LevelEntry" to="." method="_on_level_entry_body_exited"]
