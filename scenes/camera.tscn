@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://dlssrtxwnjtq7"]
+
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_boy8b"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_erv6f"]
+[ext_resource type="Texture2D" uid="uid://c2tup614s4wd0" path="res://assets/skyline_blue_grad.png" id="3_f4k2n"]
+[ext_resource type="Texture2D" uid="uid://dv3muq14f17i8" path="res://assets/skyline_babyblue.png" id="4_tlbg1"]
+[ext_resource type="Texture2D" uid="uid://dl5dt45g3yydh" path="res://assets/skyline_orange.png" id="5_kap8w"]
+[ext_resource type="Texture2D" uid="uid://lf7s8u7wqp0a" path="res://assets/skyline_purp_grad.png" id="6_c2l5k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_321cu"]
+shader = ExtResource("2_erv6f")
+shader_parameter/minHeight = null
+shader_parameter/maxHeight = 0.0
+shader_parameter/currentHeight = 0.0
+shader_parameter/minTex = ExtResource("4_tlbg1")
+shader_parameter/maxTex = ExtResource("5_kap8w")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_mmk2j"]
+texture_filter = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rr8g"]
+shader = ExtResource("2_erv6f")
+shader_parameter/minHeight = null
+shader_parameter/maxHeight = 0.0
+shader_parameter/currentHeight = 0.0
+shader_parameter/minTex = ExtResource("3_f4k2n")
+shader_parameter/maxTex = ExtResource("6_c2l5k")
+
+[node name="Camera" type="Node2D"]
+script = ExtResource("1_boy8b")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SkyBase" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_321cu")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -544.0
+offset_right = 960.0
+offset_bottom = 544.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_mmk2j")
+
+[node name="SkyGrad" type="TextureRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_5rr8g")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -544.0
+offset_right = 960.0
+offset_bottom = 544.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_mmk2j")
