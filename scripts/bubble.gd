@@ -1,11 +1,11 @@
-class_name Bubble extends RigidBody2D
+class_name Bubble extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 @onready var collisionShape = $CollisionShape2D
 
-@export var speed = 10
+@export var verticalSpeed = 10
+@export var horizontalSpeed = 10
 
-var levitating_force = Vector2(0, -speed)
 var isKicked = false
 var moveDirection = 0
 
@@ -22,14 +22,8 @@ func animationFinished() -> void:
 	pass
 
 func getKicked():
-	isKicked = true
-	linear_velocity = Vector2(0,0)
-	constant_force = Vector2(0,0)
-	apply_force(Vector2(moveDirection * 20000,0))
+	velocity.x = moveDirection * horizontalSpeed
 	sprite.play("moving")
-	await get_tree().create_timer(5.0).timeout
-	isKicked = false
-	pass
 
 func destroy() -> void:
 	sprite.play("burst")
@@ -37,8 +31,6 @@ func destroy() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	gravity_scale = 0
-	
 	sprite.scale.x = moveDirection
 	sprite.animation_finished.connect(animationFinished)
 	sprite.play("spawn")
@@ -48,10 +40,16 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta):
-	if !isKicked:
-		#print("bubble is levitating...")
-		constant_force = levitating_force
-
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		if collision.get_collider() is not Player:
+			var reflect = collision.get_remainder().bounce(collision.get_normal())
+			velocity = velocity.bounce(collision.get_normal())
+			move_and_collide(reflect)
+		
+	var normal = velocity.normalized()
+	sprite.scale.x = normal.x
+		
 func _on_VisibilityNotifier2D_screen_exited():
 	# Deletes the bullet when it exits the screen.
 	destroy()
