@@ -7,6 +7,8 @@
 radius = 64.0
 
 [node name="Bubble" type="CharacterBody2D"]
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_lhn6e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

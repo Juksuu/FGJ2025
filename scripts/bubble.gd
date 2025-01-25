@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal on_player_entered
-
 @export var speed = 200
 
 # gets called in player.gd
@@ -17,12 +15,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _on_body_entered(body: Node2D) -> void:
-	print("i was touched by", body)
-	if body.name == "Player":
-		on_player_entered.emit()
-	pass # Replace with function body.
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
