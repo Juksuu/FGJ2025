@@ -26,6 +26,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.bounce(collision.get_normal())
 
 func _on_VisibilityNotifier2D_screen_exited():
 	# Deletes the bullet when it exits the screen.
