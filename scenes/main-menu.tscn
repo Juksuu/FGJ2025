@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=4 uid="uid://cwhl6vsnw2umj"]
+
+[ext_resource type="Texture2D" uid="uid://diietu3nasrqg" path="res://assets/sheet.png" id="1_0qsfh"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_rmhs4"]
+[ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="2_ua82s"]
+[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="3_6jyrk"]
+[ext_resource type="PackedScene" uid="uid://c45l8c0sy5kac" path="res://scenes/button.tscn" id="4_jku8o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwk22"]
+texture = ExtResource("1_0qsfh")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, 17.25, 30, 17.25, 30, 30, -29.25, 30)
+2:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.25, -29.5, 30, -30, 30, -17, -30, -17.5)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.5, -6.5, 29.5, -6.25, 29.5, 6.25, -30, 6)
+
+[sub_resource type="TileSet" id="TileSet_bg4s2"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_xwk22")
+
+[node name="MainMenu" type="Node2D"]
+position = Vector2(-960, -544)
+script = ExtResource("1_rmhs4")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(0, -2)
+tile_map_data = PackedByteArray("AAAAAAkAAAABAAAAAAAAAAgAAAABAAAAAAAAAAcAAAABAAAAAAAAAAYAAAABAAAAAAAAAAUAAAABAAAAAAAAAAQAAAABAAAAAAAAAAMAAAABAAAAAAAAAAIAAAABAAAAAAAAAAEAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAAHAAAAAAABAAAAAAAIAAAAAAABAAAAAAAJAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAAOAAAAAAABAAAAAAAPAAAAAAABAAAAAAAQAAAAAAABAAAAAAARAAAAAAABAAAAAAASAAAAAAABAAAAAAATAAAAAAABAAAAAAAUAAAAAAABAAAAAAAVAAAAAAABAAAAAAAWAAAAAAABAAAAAAAXAAAAAAABAAAAAAAYAAAAAAABAAAAAAAZAAAAAAABAAAAAAAAAAoAAAABAAAAAAAAAAsAAAABAAAAAAAAAAwAAAABAAAAAAAAAA0AAAABAAAAAAAAAA4AAAABAAAAAAAAAA8AAAABAAAAAAAAABAAAAABAAAAAAABABAAAAABAAAAAAACABAAAAABAAAAAAADABAAAAABAAAAAAAEABAAAAABAAAAAAAFABAAAAABAAAAAAAGABAAAAABAAAAAAAHABAAAAABAAAAAAAIABAAAAABAAAAAAAJABAAAAABAAAAAAAKABAAAAABAAAAAAALABAAAAABAAAAAAAMABAAAAABAAAAAAANABAAAAABAAAAAAAOABAAAAABAAAAAAAPABAAAAABAAAAAAAQABAAAAABAAAAAAARABAAAAABAAAAAAASABAAAAABAAAAAAATABAAAAABAAAAAAAUABAAAAABAAAAAAAVABAAAAABAAAAAAAWABAAAAABAAAAAAAXABAAAAABAAAAAAAYABAAAAABAAAAAAAZABAAAAABAAAAAAAaABAAAAABAAAAAAAbABAAAAABAAAAAAAcABAAAAABAAAAAAAdABAAAAABAAAAAAAdAAAAAAABAAAAAAAdAAEAAAABAAAAAAAdAAIAAAABAAAAAAAdAAMAAAABAAAAAAAdAAQAAAABAAAAAAAdAAUAAAABAAAAAAAdAAYAAAABAAAAAAAdAAcAAAABAAAAAAAdAAgAAAABAAAAAAAdAAkAAAABAAAAAAAdAAoAAAABAAAAAAAdAAsAAAABAAAAAAAdAAwAAAABAAAAAAAdAA0AAAABAAAAAAAdAA4AAAABAAAAAAAdAA8AAAABAAAAAAAaAAAAAAABAAAAAAAbAAAAAAABAAAAAAAcAAAAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_bg4s2")
+rendering_quadrant_size = 64
+
+[node name="Player" parent="." instance=ExtResource("2_ua82s")]
+position = Vector2(916.5, 562)
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 371.0
+offset_top = 252.0
+offset_right = 1553.0
+offset_bottom = 494.0
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 40
+text = "Welcome To \"Bubble princess XCVII: Tover of Effervescense!\""
+editable = false
+
+[node name="Camera" parent="." instance=ExtResource("3_6jyrk")]
+z_index = -1
+position = Vector2(960, 540)
+
+[node name="StartButton" parent="." instance=ExtResource("4_jku8o")]
+position = Vector2(674, 997)
+text = "Start"
+
+[node name="QuitButton" parent="." instance=ExtResource("4_jku8o")]
+position = Vector2(1253, 985)
+text = "Quit"
+
+[connection signal="playerTouched" from="StartButton" to="." method="StartButton"]
+[connection signal="playerTouched" from="QuitButton" to="." method="QuitButton"]
