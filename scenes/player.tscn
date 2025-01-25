@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbccs7l313f7m"]
+[gd_scene load_steps=7 format=3 uid="uid://dbccs7l313f7m"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_23j3q"]
 [ext_resource type="Texture2D" uid="uid://ca3637plixjh7" path="res://assets/player.png" id="2_n1aps"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2kro"]
 size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2vxm"]
+atlas = ExtResource("3_4sd01")
+region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m252x"]
 radius = 15.0
@@ -23,7 +27,7 @@ shape = SubResource("RectangleShape2D_g2kro")
 texture = ExtResource("2_n1aps")
 
 [node name="BubbleTexture" type="Sprite2D" parent="."]
-texture = ExtResource("3_4sd01")
+texture = SubResource("AtlasTexture_c2vxm")
 
 [node name="marker" type="Marker2D" parent="."]
 position = Vector2(65, 0)
