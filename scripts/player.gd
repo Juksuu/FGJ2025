@@ -36,7 +36,6 @@ func bubbleHit():
 
 func shoot():
 	var b = Bubble.instantiate()
-	b.name = "Bubble"
 	b.start($marker.global_position, rotation)
 	get_tree().root.add_child(b)
 	pass
@@ -55,10 +54,10 @@ func _physics_process(delta):
 	# collision
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		if collision.get_collider().name == "Bubble" and !isInBubble:
+		var collisionObject = collision.get_collider()
+		if collisionObject is Bubble and !isInBubble:
+			collisionObject.free()
 			bubbleHit()
-		elif !(collision.get_collider().name == "Platform"):
-			print("Collided with: ", collision.get_collider().name)
 	pass
 
 # Called when the node enters the scene tree for the first time.
