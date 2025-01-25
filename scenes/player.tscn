@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbccs7l313f7m"]
+[gd_scene load_steps=14 format=3 uid="uid://dbccs7l313f7m"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_23j3q"]
 [ext_resource type="Texture2D" uid="uid://dap5lk2mlkgfe" path="res://assets/hero.png" id="2_1rokw"]
@@ -110,6 +110,10 @@ _data = {
 "walk": SubResource("Animation_1csli")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewhfb"]
+atlas = ExtResource("3_4sd01")
+region = Rect2(0, 64, 64, 64)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_s8bai"]
 radius = 15.0
 
@@ -135,7 +139,7 @@ libraries = {
 
 [node name="BubbleTexture" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("3_4sd01")
+texture = SubResource("AtlasTexture_ewhfb")
 
 [node name="marker" type="Marker2D" parent="."]
 position = Vector2(64, 0)
