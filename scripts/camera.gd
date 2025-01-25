@@ -11,18 +11,19 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var newPosition = self.position
-	
-	skyBase.material.set_shader_parameter("minHeight", minHeight)
-	skyBase.material.set_shader_parameter("maxHeight", maxHeight)
-	
-	skyGrad.material.set_shader_parameter("minHeight", minHeight)
-	skyGrad.material.set_shader_parameter("maxHeight", maxHeight)
+	if (material != null):
+		skyBase.material.set_shader_parameter("minHeight", minHeight)
+		skyBase.material.set_shader_parameter("maxHeight", maxHeight)
+		
+		skyGrad.material.set_shader_parameter("minHeight", minHeight)
+		skyGrad.material.set_shader_parameter("maxHeight", maxHeight)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var height = self.position.abs().y
-	skyBase.material.set_shader_parameter("currentHeight", height)
-	skyGrad.material.set_shader_parameter("currentHeight", height)
+	if (material != null):
+		skyBase.material.set_shader_parameter("currentHeight", height)
+		skyGrad.material.set_shader_parameter("currentHeight", height)
 
 func move_to_next_level(levelPos: Vector2) -> void:
 	var pos = Vector2(levelPos.x + 1920 / 2, levelPos.y + 1088 / 2)

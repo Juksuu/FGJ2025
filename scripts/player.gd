@@ -6,6 +6,7 @@ signal player_entering_new_level(levelPos: Vector2)
 @export var jump_speed = -400.0
 var bubbleTexture
 var isInBubble = false
+var hasBubble = true
 var Bubble = preload("res://scenes/bubble.tscn")
 var bubbleSpeed = 200
 
@@ -14,8 +15,34 @@ var currentLevel
 # Get the gravity from the project settings so you can sync with rigid body nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func get_input():
+func bubbleHit():
+	print("Player got hit by a bubble.")
+	isInBubble = true
+	await get_tree().create_timer(1.0).timeout
+	isInBubble = false
+	hasBubble = true
+	pass
 
+func spawnBubble():
+	hasBubble = false
+	var b = Bubble.instantiate()
+	b.start($marker.global_position, rotation)
+	get_tree().root.add_child(b)
+	pass
+
+func kick():
+	var collisions = $KickArea.get_overlapping_bodies()
+	for i in collisions:
+		print("Kick connected with ", i.name)
+	print("Kick done")
+	pass
+
+func get_input():
+	if Input.is_action_just_pressed("kick"):
+		print("SUPER KICK") 
+		kick()
+	
+	
 	# Get the input direction.
 	var direction = Input.get_axis("left", "right")
 	velocity.x = direction * speed
@@ -25,21 +52,8 @@ func get_input():
 		velocity.y = jump_speed
 
 	# shoot input
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
-	pass
-
-func bubbleHit():
-	print("Player got hit by a bubble.")
-	isInBubble = true
-	await get_tree().create_timer(1.0).timeout
-	isInBubble = false
-	pass
-
-func shoot():
-	var b = Bubble.instantiate()
-	b.start($marker.global_position, rotation)
-	get_tree().root.add_child(b)
+	if Input.is_action_just_pressed("bubble") and hasBubble:
+		spawnBubble()
 	pass
 
 func _physics_process(delta):
@@ -69,9 +83,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("bubble"):
-		isInBubble = !isInBubble
-
 	if isInBubble:
 		bubbleTexture.show()
 	else:
