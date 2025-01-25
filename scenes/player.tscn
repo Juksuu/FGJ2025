@@ -32,7 +32,7 @@ tracks/0/path = NodePath("playerTexture:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.533333),
+"times": PackedFloat32Array(0, 0.133333, 0.366667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [6, 7, 0]
@@ -142,7 +142,7 @@ visible = false
 texture = SubResource("AtlasTexture_ewhfb")
 
 [node name="marker" type="Marker2D" parent="."]
-position = Vector2(64, 0)
+position = Vector2(96, 0)
 
 [node name="KickArea" type="Area2D" parent="."]
 position = Vector2(65, 0)
