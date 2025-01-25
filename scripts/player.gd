@@ -9,6 +9,8 @@ var isInBubble = false
 var Bubble = preload("res://scenes/bubble.tscn")
 var bubbleSpeed = 200
 
+var currentLevel
+
 # Get the gravity from the project settings so you can sync with rigid body nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -76,15 +78,22 @@ func _process(_delta: float) -> void:
 		bubbleTexture.hide()
 	pass
 
-func on_new_level_entry(levelPos: Vector2) -> void:
-	print("on_new_level_entry")
+func on_new_level_entry(level: Level) -> void:
 	self.set_collision_layer_value(3, false)
 	self.set_collision_mask_value(3, false)
-	player_entering_new_level.emit(levelPos)
+	
+	player_entering_new_level.emit(level.position)
 
-func on_new_level_entered() -> void:
+func on_new_level_entered(level: Level) -> void:
 	self.set_collision_layer_value(3, true)
 	self.set_collision_mask_value(3, true)
+	
+	if self.currentLevel:
+		self.currentLevel.set_monitor_entry(true)
+
+	level.set_monitor_entry(false)
+	self.currentLevel = level
+	
 
 func _on_bubble_on_player_entered() -> void:
 	print("entered bubble")
