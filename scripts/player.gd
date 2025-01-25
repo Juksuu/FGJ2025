@@ -6,10 +6,11 @@ signal player_entering_new_level(levelPos: Vector2)
 @onready var sprite = $playerTexture
 @onready var marker = $marker
 @onready var kickArea = $KickArea
+@onready var bubbleTexture = $BubbleTexture
 
 @export var speed = 300.0
 @export var jump_speed = -400.0
-var bubbleTexture
+
 var isInBubble = false
 
 var Bubble = preload("res://scenes/bubble.tscn")
@@ -43,21 +44,24 @@ func spawnBubble():
 	
 	bubbleInUse = b
 
-func kick():
-	animationPlayer.play("punch")
-	var collisions = kickArea.get_overlapping_bodies()
-	for i in collisions:
-		if i is Bubble:
-			i.getKicked()
-			print("Kick connected with ", i.name)
-	print("Kick done")
-	pass
+func animationFinished(name: String):
+	if name == "punch":
+		var collisions = kickArea.get_overlapping_bodies()
+		for collider in collisions:
+			if collider is MainMenuButton:
+				collider.playerKicked()
 
-func get_input():
+func checkBubbleHit() -> void:
+		var collisions = kickArea.get_overlapping_bodies()
+		for collider in collisions:
+			if collider is Bubble:
+				collider.getKicked()
+
+func handleInput():
 	if Input.is_action_just_pressed("kick"):
 		print("SUPER KICK")
-		kick()
-
+		animationPlayer.play("punch")
+		checkBubbleHit()
 
 	# Get the input direction.
 	var direction = Input.get_axis("left", "right")
@@ -87,7 +91,7 @@ func get_input():
 		animationPlayer.play("RESET")
 
 func _physics_process(delta):
-	get_input()
+	handleInput()
 
 	# inside and outside bubble gravity
 	if isInBubble:
@@ -107,8 +111,7 @@ func _physics_process(delta):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	bubbleTexture = find_child("BubbleTexture")
-	print("bubble: ",bubbleTexture)
+	animationPlayer.animation_finished.connect(animationFinished)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -132,8 +135,3 @@ func on_new_level_entered(level: Level) -> void:
 
 	level.set_monitor_entry(false)
 	self.currentLevel = level
-
-
-func _on_bubble_on_player_entered() -> void:
-	print("entered bubble")
-	pass # Replace with function body.

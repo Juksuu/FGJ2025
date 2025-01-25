@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://hsh7fbhh46fm"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_8brxy"]
+[ext_resource type="PackedScene" uid="uid://dlssrtxwnjtq7" path="res://scenes/camera.tscn" id="2_j3hnd"]
+[ext_resource type="PackedScene" uid="uid://oxbstmdtbfn" path="res://scenes/level1.tscn" id="3_p7fbr"]
+[ext_resource type="PackedScene" uid="uid://cc8lhm05iqfbp" path="res://scenes/level2.tscn" id="4_tihet"]
+[ext_resource type="PackedScene" uid="uid://c6x512tn0n2ol" path="res://scenes/level3.tscn" id="5_dq3nf"]
+[ext_resource type="PackedScene" uid="uid://dxvq26s1vqroc" path="res://scenes/level4.tscn" id="6_fusyv"]
+[ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="7_pcsbm"]
+
+[node name="TestScene" type="Node2D"]
+script = ExtResource("1_8brxy")
+
+[node name="Camera" parent="." instance=ExtResource("2_j3hnd")]
+maxHeight = 1088
+
+[node name="Level1" parent="." instance=ExtResource("3_p7fbr")]
+
+[node name="Level2" parent="." instance=ExtResource("4_tihet")]
+position = Vector2(-960, -1632)
+
+[node name="Level3" parent="." instance=ExtResource("5_dq3nf")]
+position = Vector2(-2880, -1632)
+
+[node name="Level4" parent="." instance=ExtResource("6_fusyv")]
+position = Vector2(-2880, -2720)
+
+[node name="Player" parent="." instance=ExtResource("7_pcsbm")]
+jump_speed = -1000.0

@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://cwhl6vsnw2umj"]
+[gd_scene load_steps=8 format=4 uid="uid://b1ohcwss6yn1x"]
 
 [ext_resource type="Texture2D" uid="uid://diietu3nasrqg" path="res://assets/sheet.png" id="1_0qsfh"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_rmhs4"]
 [ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="2_ua82s"]
-[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="3_6jyrk"]
-[ext_resource type="PackedScene" uid="uid://c45l8c0sy5kac" path="res://scenes/button.tscn" id="4_jku8o"]
+[ext_resource type="PackedScene" uid="uid://dlssrtxwnjtq7" path="res://scenes/camera.tscn" id="3_6jyrk"]
+[ext_resource type="PackedScene" uid="uid://c1ppro2fpc8af" path="res://scenes/button.tscn" id="4_jku8o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwk22"]
 texture = ExtResource("1_0qsfh")
@@ -22,7 +22,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_bg4s2"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_xwk22")
 
 [node name="MainMenu" type="Node2D"]
