@@ -33,7 +33,9 @@ func spawnBubble():
 func kick():
 	var collisions = $KickArea.get_overlapping_bodies()
 	for i in collisions:
-		print("Kick connected with ", i.name)
+		if i is Bubble:
+			i.getKicked()
+			print("Kick connected with ", i.name)
 	print("Kick done")
 	pass
 
