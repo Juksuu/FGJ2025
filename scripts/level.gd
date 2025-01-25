@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var player = $"../Player"
+@onready var player: Player = $"../Player"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,8 +13,10 @@ func _process(delta: float) -> void:
 
 
 func _on_level_entry_body_entered(body: Node2D) -> void:
-	player.on_new_level_entry()
+	if body.name == "Player":
+		player.on_new_level_entry(self.position)
 
 
 func _on_level_entry_body_exited(body: Node2D) -> void:
-	player.on_new_level_entered()
+	if body.name == "Player":
+		player.on_new_level_entered()

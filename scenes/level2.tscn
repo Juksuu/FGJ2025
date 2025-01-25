@@ -8,7 +8,7 @@ texture = ExtResource("1_x76j5")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.25, -29.25, 28.75, -29.5, 28.5, 29.75, -29, 29.75)
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, 17.25, 30, 17.25, 30, 30, -29.25, 30)
 2:1/0 = 0
@@ -23,11 +23,13 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_bg4s2"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 0
 physics_layer_1/collision_layer = 4
+physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_xwk22")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3vka"]
-size = Vector2(129, 47)
+size = Vector2(128, 47)
 
 [node name="Level2" type="Node2D"]
 position = Vector2(-960, -544)
@@ -44,7 +46,7 @@ position = Vector2(1791, 1033)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEntry"]
-position = Vector2(0.5, 29.5)
+position = Vector2(1, 29.5)
 shape = SubResource("RectangleShape2D_d3vka")
 
 [connection signal="body_entered" from="LevelEntry" to="." method="_on_level_entry_body_entered"]
