@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://m60fj65bkhvk"]
 
 [ext_resource type="Script" path="res://scripts/bubble.gd" id="1_lhn6e"]
-[ext_resource type="Texture2D" uid="uid://chywfbhnjpd3k" path="res://assets/bubble_placebo.png" id="2_aaru4"]
+[ext_resource type="SpriteFrames" uid="uid://haqfuctb63h8" path="res://assets/bubble.tres" id="2_qmb3x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f177b"]
 radius = 32.0
@@ -14,5 +14,7 @@ script = ExtResource("1_lhn6e")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_f177b")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_aaru4")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_qmb3x")
+animation = &"moving"
+frame_progress = 0.084665
