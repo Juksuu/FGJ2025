@@ -17,5 +17,4 @@ shape = SubResource("CircleShape2D_f177b")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = ExtResource("2_qmb3x")
-animation = &"moving"
-frame_progress = 0.548542
+animation = &"burst"

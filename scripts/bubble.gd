@@ -1,5 +1,7 @@
 class_name Bubble extends RigidBody2D
 
+@onready var sprite = $Sprite2D
+
 @export var speed = 10
 var levitating_force = Vector2(0, -speed)
 var isKicked = false
@@ -9,18 +11,30 @@ func start(_position, _direction):
 	rotation = _direction
 	position = _position
 
+func animationFinished() -> void:
+	print("current anim", sprite.animation)
+	if sprite.animation == "burst":
+		queue_free()
+	pass
+
 func getKicked():
 	isKicked = true
 	linear_velocity = Vector2(0,0)
 	constant_force = Vector2(0,0)
 	apply_force(Vector2(20000,0))
+	sprite.play("moving")
 	await get_tree().create_timer(5.0).timeout
 	isKicked = false
 	pass
+
+func destroy() -> void:
+	sprite.play("burst")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gravity_scale = 0
-	pass # Replace with function body.
+	sprite.animation_finished.connect(animationFinished)
+	sprite.play("spawn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -28,9 +42,9 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta):
 	if !isKicked:
-		print("bubble is levitating...")
+		#print("bubble is levitating...")
 		constant_force = levitating_force
 
 func _on_VisibilityNotifier2D_screen_exited():
 	# Deletes the bullet when it exits the screen.
-	queue_free()
+	destroy()
