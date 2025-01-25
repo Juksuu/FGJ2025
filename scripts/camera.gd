@@ -3,16 +3,20 @@ extends Node2D
 @onready var skyBase = $SkyBase
 @onready var skyGrad = $SkyGrad
 
-const MIN_HEIGHT = 0
-const MAX_HEIGHT = 1088
+@export var minHeight = 0
+@export var maxHeight = 1088
+
+@export var transitionDuration = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	skyBase.material.set_shader_parameter("minHeight", MIN_HEIGHT)
-	skyBase.material.set_shader_parameter("maxHeight", MAX_HEIGHT)
+	var newPosition = self.position
 	
-	skyGrad.material.set_shader_parameter("minHeight", MIN_HEIGHT)
-	skyGrad.material.set_shader_parameter("maxHeight", MAX_HEIGHT)
+	skyBase.material.set_shader_parameter("minHeight", minHeight)
+	skyBase.material.set_shader_parameter("maxHeight", maxHeight)
+	
+	skyGrad.material.set_shader_parameter("minHeight", minHeight)
+	skyGrad.material.set_shader_parameter("maxHeight", maxHeight)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,5 +25,13 @@ func _process(delta: float) -> void:
 	skyGrad.material.set_shader_parameter("currentHeight", height)
 
 func move_to_next_level(levelPos: Vector2) -> void:
-	self.position = Vector2(levelPos.x + 1920 / 2, levelPos.y + 1088 / 2)
+	var pos = Vector2(levelPos.x + 1920 / 2, levelPos.y + 1088 / 2)
+	
+	var tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	
+	tween.tween_property(self, "position", pos, transitionDuration)
+	tween.tween_callback(on_transition_tween_done)
+	
+func on_transition_tween_done() -> void:
 	get_tree().paused = false
