@@ -137,7 +137,6 @@ libraries = {
 }
 
 [node name="BubbleTexture" type="Sprite2D" parent="."]
-visible = false
 texture = SubResource("AtlasTexture_ewhfb")
 
 [node name="marker" type="Marker2D" parent="."]
