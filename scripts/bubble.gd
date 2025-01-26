@@ -7,13 +7,14 @@ signal bubbleExpired
 @onready var collisionShape = $CollisionShape2D
 @onready var collisionTop = $CollisionShape2D2
 
-@export var verticalSpeed = -50
+@export var verticalSpeed = -100
 @export var horizontalSpeed = 400
 
 var isKicked = false
 var isStomped = false
-var stompTimer = 5
-var floatingTimer = 2
+var exists = false
+var stompTimer = 2
+var floatingTimer = 10
 var moveDirection = 0
 
 # gets called in player.gd
@@ -26,8 +27,13 @@ func animationFinished(name: String) -> void:
 	print("current anim", name)
 	if name == "burst":
 		queue_free()
+	if name == "spawn":
+		exists = true
 
 func getKicked():
+	isKicked = true
+	isStomped = false
+	floatingTimer = 10
 	velocity.x = moveDirection * horizontalSpeed
 	animationPlayer.play("move")
 
@@ -49,22 +55,26 @@ func _process(delta: float) -> void:
 		if stompTimer <=0:
 			bubbleExpired.emit()
 			destroy()
-	elif not isStomped and not isKicked:
+	elif not isStomped and not isKicked and floatingTimer > 0 and exists:
 		floatingTimer -= delta
 	#pass
 
 func _physics_process(delta):
 	if velocity.x == 0 and not isStomped:
-		velocity.y = verticalSpeed
+		#if floatingTimer <= 0:
+		var modifiedFloat =  verticalSpeed * ((10 - floatingTimer) / 10)
+		velocity.y = clamp(modifiedFloat, verticalSpeed, 0)
 	else:
 		velocity.y = 0
 
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		if collision.get_collider() is Player:
-			if collision.get_local_shape() == collisionTop:
+			if collision.get_local_shape() == collisionTop and velocity.x == 0:
 				print("MURDER")
 				isStomped = true
+				floatingTimer = 10
+				animationPlayer.play("jump")
 			else:
 				print("KILL")
 				hitPlayer.emit(self)
@@ -82,3 +92,6 @@ func _physics_process(delta):
 func _on_VisibilityNotifier2D_screen_exited():
 	# Deletes the bullet when it exits the screen.
 	destroy()
+
+func _top_collider():
+	return collisionTop

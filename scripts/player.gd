@@ -111,11 +111,15 @@ func _physics_process(delta):
 	# collision
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
+		print(collision.get_collider_shape())
 		var collisionObject = collision.get_collider()
 		if collisionObject is Bubble and !isInBubble:
-			pass
-			#collisionObject.destroy()
-			#bubbleHit()
+			if collision.get_collider_shape() == collisionObject._top_collider():
+				continue
+			#pass
+			else:
+				collisionObject.destroy()
+				bubbleHit(collisionObject)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

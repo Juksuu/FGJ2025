@@ -115,8 +115,9 @@ _data = {
 atlas = ExtResource("3_4sd01")
 region = Rect2(0, 64, 64, 64)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s8bai"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_667a3"]
 radius = 15.0
+height = 64.0
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-4, -10)
@@ -143,7 +144,7 @@ libraries = {
 texture = SubResource("AtlasTexture_ewhfb")
 
 [node name="marker" type="Marker2D" parent="."]
-position = Vector2(64, 0)
+position = Vector2(32, 0)
 
 [node name="KickArea" type="Area2D" parent="."]
 position = Vector2(32, 0)
@@ -151,4 +152,5 @@ collision_layer = 0
 collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KickArea"]
-shape = SubResource("CircleShape2D_s8bai")
+position = Vector2(-4, 0)
+shape = SubResource("CapsuleShape2D_667a3")
