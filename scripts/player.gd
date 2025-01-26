@@ -147,6 +147,8 @@ func _process(delta: float) -> void:
 func on_new_level_entry(level: Level) -> void:
 	#self.set_collision_layer_value(3, false)
 	self.set_collision_mask_value(3, false)
+	
+	velocity.y = jump_speed
 
 	player_entering_new_level.emit(level.position)
 
