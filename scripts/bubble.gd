@@ -57,6 +57,7 @@ func _process(delta: float) -> void:
 	if isStomped:
 		stompTimer -= delta
 		if stompTimer <=0:
+			isStomped = false
 			bubbleExpired.emit()
 			destroy()
 	elif not isStomped and not isKicked and floatingTimer > 0 and exists:
