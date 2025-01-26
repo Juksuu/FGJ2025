@@ -26,4 +26,5 @@ position = Vector2(-2880, -1632)
 position = Vector2(-2880, -2720)
 
 [node name="Player" parent="." instance=ExtResource("7_pcsbm")]
+position = Vector2(-815, 433)
 jump_speed = -1000.0
