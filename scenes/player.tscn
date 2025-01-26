@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_23j3q"]
 [ext_resource type="Texture2D" uid="uid://dap5lk2mlkgfe" path="res://assets/hero.png" id="2_1rokw"]
 [ext_resource type="Texture2D" uid="uid://dyfofdbd1axwv" path="res://assets/bubble.png" id="3_4sd01"]
-[ext_resource type="PackedScene" uid="uid://regsob88xmmw" path="res://scenes/audio.tscn" id="4_t8bwl"]
+[ext_resource type="PackedScene" path="res://scenes/audio.tscn" id="4_t8bwl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0acwu"]
 radius = 13.0
@@ -124,9 +124,10 @@ height = 64.0
 position = Vector2(-4, -10)
 collision_mask = 30
 script = ExtResource("1_23j3q")
-speed = 400.0
-jump_speed = -700.0
-mass = 1.5
+jump_speed = -800.0
+mass = 1.7
+acceleration = 1600
+deceleration = 2600
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
