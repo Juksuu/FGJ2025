@@ -124,6 +124,9 @@ height = 64.0
 position = Vector2(-4, -10)
 collision_mask = 30
 script = ExtResource("1_23j3q")
+speed = 400.0
+jump_speed = -700.0
+mass = 1.5
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

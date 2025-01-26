@@ -11,6 +11,7 @@ signal player_entering_new_level(levelPos: Vector2)
 
 @export var speed = 300.0
 @export var jump_speed = -400.0
+@export var mass: float = 1.00 # abstract value to dampen the floatiness in jump 
 
 var walkAudioTimer = 0
 
@@ -109,7 +110,7 @@ func _physics_process(delta):
 	if isInBubble:
 		velocity.y = -speed
 	else:
-		velocity.y += gravity * delta
+		velocity.y += gravity * mass * delta 
 
 	move_and_slide()
 
