@@ -15,5 +15,5 @@ func _process(delta: float) -> void:
 
 
 func player_entering_new_level(levelPos: Vector2) -> void:
-	#get_tree().paused = true
+	get_tree().paused = true
 	camera.move_to_next_level(levelPos)

@@ -13,6 +13,7 @@ signal bubbleExpired
 var isKicked = false
 var isStomped = false
 var stompTimer = 5
+var floatingTimer = 2
 var moveDirection = 0
 
 # gets called in player.gd
@@ -48,6 +49,8 @@ func _process(delta: float) -> void:
 		if stompTimer <=0:
 			bubbleExpired.emit()
 			destroy()
+	elif not isStomped and not isKicked:
+		floatingTimer -= delta
 	#pass
 
 func _physics_process(delta):
