@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://hsh7fbhh46fm"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_8brxy"]
-[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="2_j3hnd"]
+[ext_resource type="PackedScene" uid="uid://dlssrtxwnjtq7" path="res://scenes/camera.tscn" id="2_j3hnd"]
 [ext_resource type="PackedScene" uid="uid://oxbstmdtbfn" path="res://scenes/level1.tscn" id="3_p7fbr"]
 [ext_resource type="PackedScene" uid="uid://cc8lhm05iqfbp" path="res://scenes/level2.tscn" id="4_tihet"]
-[ext_resource type="PackedScene" path="res://scenes/level3.tscn" id="5_dq3nf"]
-[ext_resource type="PackedScene" path="res://scenes/level4.tscn" id="6_fusyv"]
+[ext_resource type="PackedScene" uid="uid://c15ic5xgsenfn" path="res://scenes/level3.tscn" id="5_dq3nf"]
+[ext_resource type="PackedScene" uid="uid://dxvq26s1vqroc" path="res://scenes/level4.tscn" id="6_fusyv"]
 [ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="7_pcsbm"]
 [ext_resource type="PackedScene" uid="uid://regsob88xmmw" path="res://scenes/audio.tscn" id="8_ewv8x"]
 

@@ -117,12 +117,10 @@ func _physics_process(delta):
 	# collision
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		print(collision.get_collider_shape())
 		var collisionObject = collision.get_collider()
 		if collisionObject is Bubble and !isInBubble:
 			if collision.get_collider_shape() == collisionObject._top_collider():
 				continue
-			#pass
 			else:
 				collisionObject.destroy()
 				bubbleHit(collisionObject)
@@ -145,6 +143,7 @@ func _process(delta: float) -> void:
 			audio.playWalk()
 
 func on_new_level_entry(level: Level) -> void:
+	print("on new level entry")
 	#self.set_collision_layer_value(3, false)
 	self.set_collision_mask_value(3, false)
 	

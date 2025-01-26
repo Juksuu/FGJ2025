@@ -7,7 +7,7 @@
 size = Vector2(127, 13)
 
 [node name="Level3" type="Node2D"]
-position = Vector2(-960, -544)
+position = Vector2(-959, -544)
 script = ExtResource("1_vky2t")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
