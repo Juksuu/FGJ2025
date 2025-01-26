@@ -6,6 +6,7 @@ signal bubbleExpired
 @onready var animationPlayer = $AnimationPlayer
 @onready var collisionShape = $CollisionShape2D
 @onready var collisionTop = $CollisionShape2D2
+@onready var audio = $Audio
 
 @export var verticalSpeed = -100
 @export var horizontalSpeed = 400
@@ -16,6 +17,8 @@ var exists = false
 var stompTimer = 2
 var floatingTimer = 10
 var moveDirection = 0
+
+var bubbleMoveTimer = 0
 
 # gets called in player.gd
 func start(_position, _rotation, _direction):
@@ -40,6 +43,7 @@ func getKicked():
 func destroy() -> void:
 	print("destroy bubbel")
 	animationPlayer.play("burst")
+	audio.playBubblePop()
 	collisionShape.disabled = true
 
 # Called when the node enters the scene tree for the first time.
@@ -57,7 +61,12 @@ func _process(delta: float) -> void:
 			destroy()
 	elif not isStomped and not isKicked and floatingTimer > 0 and exists:
 		floatingTimer -= delta
-	#pass
+
+	bubbleMoveTimer -= delta
+	if animationPlayer.is_playing() and animationPlayer.current_animation == "move":
+		if bubbleMoveTimer <=0:
+			bubbleMoveTimer = 0.3
+			audio.playBubbleMove()
 
 func _physics_process(delta):
 	if velocity.x == 0 and not isStomped:
@@ -82,13 +91,13 @@ func _physics_process(delta):
 			var reflect = collision.get_remainder().bounce(collision.get_normal())
 			velocity = velocity.bounce(collision.get_normal())
 			move_and_collide(reflect)
-			
 
-		
+
+
 	var normal = velocity.normalized()
 	if normal.x != 0:
 		sprite.scale.x = normal.x
-		
+
 func _on_VisibilityNotifier2D_screen_exited():
 	# Deletes the bullet when it exits the screen.
 	destroy()

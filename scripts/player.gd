@@ -7,9 +7,12 @@ signal player_entering_new_level(levelPos: Vector2)
 @onready var marker = $marker
 @onready var kickArea = $KickArea
 @onready var bubbleTexture = $BubbleTexture
+@onready var audio = $Audio
 
 @export var speed = 300.0
 @export var jump_speed = -400.0
+
+var walkAudioTimer = 0
 
 var isInBubble = false
 
@@ -68,6 +71,7 @@ func handleInput():
 	if Input.is_action_just_pressed("kick"):
 		print("SUPER KICK")
 		animationPlayer.play("punch")
+		audio.playPunch()
 		checkBubbleHit()
 
 	# Get the input direction.
@@ -77,6 +81,7 @@ func handleInput():
 	# Handle Jump.
 	if Input.is_action_just_pressed("up") and is_on_floor():
 		animationPlayer.play("jump")
+		audio.playJump()
 		velocity.y = jump_speed
 
 	# shoot input
@@ -126,11 +131,17 @@ func _ready() -> void:
 	animationPlayer.animation_finished.connect(animationFinished)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if isInBubble:
 		bubbleTexture.show()
 	else:
 		bubbleTexture.hide()
+	
+	walkAudioTimer -= delta
+	if animationPlayer.is_playing() and animationPlayer.current_animation == "walk":
+		if walkAudioTimer <=0:
+			walkAudioTimer = 0.4
+			audio.playWalk()
 
 func on_new_level_entry(level: Level) -> void:
 	#self.set_collision_layer_value(3, false)

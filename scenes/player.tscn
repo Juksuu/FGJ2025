@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbccs7l313f7m"]
+[gd_scene load_steps=15 format=3 uid="uid://dbccs7l313f7m"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_23j3q"]
 [ext_resource type="Texture2D" uid="uid://dap5lk2mlkgfe" path="res://assets/hero.png" id="2_1rokw"]
 [ext_resource type="Texture2D" uid="uid://dyfofdbd1axwv" path="res://assets/bubble.png" id="3_4sd01"]
+[ext_resource type="PackedScene" uid="uid://regsob88xmmw" path="res://scenes/audio.tscn" id="4_t8bwl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0acwu"]
 radius = 13.0
@@ -154,3 +155,5 @@ collision_mask = 48
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KickArea"]
 position = Vector2(-4, 0)
 shape = SubResource("CapsuleShape2D_667a3")
+
+[node name="Audio" parent="." instance=ExtResource("4_t8bwl")]

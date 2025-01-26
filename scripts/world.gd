@@ -2,10 +2,12 @@ extends Node2D
 
 @onready var camera = $Camera
 @onready var player = $Player
+@onready var audio = $Audio
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	audio.startMusic()
 	player.player_entering_new_level.connect(player_entering_new_level)
 
 

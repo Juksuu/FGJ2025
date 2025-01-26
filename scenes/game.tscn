@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hsh7fbhh46fm"]
+[gd_scene load_steps=9 format=3 uid="uid://hsh7fbhh46fm"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_8brxy"]
 [ext_resource type="PackedScene" uid="uid://dlssrtxwnjtq7" path="res://scenes/camera.tscn" id="2_j3hnd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c6x512tn0n2ol" path="res://scenes/level3.tscn" id="5_dq3nf"]
 [ext_resource type="PackedScene" uid="uid://dxvq26s1vqroc" path="res://scenes/level4.tscn" id="6_fusyv"]
 [ext_resource type="PackedScene" uid="uid://dbccs7l313f7m" path="res://scenes/player.tscn" id="7_pcsbm"]
+[ext_resource type="PackedScene" uid="uid://regsob88xmmw" path="res://scenes/audio.tscn" id="8_ewv8x"]
 
 [node name="TestScene" type="Node2D"]
 script = ExtResource("1_8brxy")
@@ -28,3 +29,5 @@ position = Vector2(-2880, -2720)
 [node name="Player" parent="." instance=ExtResource("7_pcsbm")]
 position = Vector2(-815, 433)
 jump_speed = -1000.0
+
+[node name="Audio" parent="." instance=ExtResource("8_ewv8x")]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://m60fj65bkhvk"]
+[gd_scene load_steps=13 format=3 uid="uid://m60fj65bkhvk"]
 
 [ext_resource type="Script" path="res://scripts/bubble.gd" id="1_lhn6e"]
 [ext_resource type="Texture2D" uid="uid://dyfofdbd1axwv" path="res://assets/bubble.png" id="2_pdvsa"]
+[ext_resource type="PackedScene" uid="uid://regsob88xmmw" path="res://scenes/audio.tscn" id="3_ge7t6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svkxt"]
 size = Vector2(32, 26)
@@ -141,3 +142,5 @@ libraries = {
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_d7vc5")
+
+[node name="Audio" parent="." instance=ExtResource("3_ge7t6")]
