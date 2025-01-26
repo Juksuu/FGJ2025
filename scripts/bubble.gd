@@ -1,13 +1,18 @@
 class_name Bubble extends CharacterBody2D
+signal hitPlayer
+signal bubbleExpired
 
 @onready var sprite = $Sprite2D
 @onready var animationPlayer = $AnimationPlayer
 @onready var collisionShape = $CollisionShape2D
+@onready var collisionTop = $CollisionShape2D2
 
 @export var verticalSpeed = -50
 @export var horizontalSpeed = 400
 
 var isKicked = false
+var isStomped = false
+var stompTimer = 5
 var moveDirection = 0
 
 # gets called in player.gd
@@ -38,17 +43,29 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if isStomped:
+		stompTimer -= delta
+		if stompTimer <=0:
+			bubbleExpired.emit()
+			destroy()
+	#pass
 
 func _physics_process(delta):
-	if velocity.x == 0:
+	if velocity.x == 0 and not isStomped:
 		velocity.y = verticalSpeed
 	else:
 		velocity.y = 0
 
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		if collision.get_collider() is not Player:
+		if collision.get_collider() is Player:
+			if collision.get_local_shape() == collisionTop:
+				print("MURDER")
+				isStomped = true
+			else:
+				print("KILL")
+				hitPlayer.emit(self)
+		elif collision.get_collider() is not Player:
 			var reflect = collision.get_remainder().bounce(collision.get_normal())
 			velocity = velocity.bounce(collision.get_normal())
 			move_and_collide(reflect)

@@ -23,11 +23,12 @@ var currentLevel
 # Get the gravity from the project settings so you can sync with rigid body nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func bubbleHit():
+func bubbleHit(bubble):
 	print("Player got hit by a bubble.")
+	bubble.destroy()
+	animationPlayer.play("bubble")
 	isInBubble = true
 	bubbleInUse = null
-	animationPlayer.play("bubble")
 	await get_tree().create_timer(1.0).timeout
 	isInBubble = false
 	pass
@@ -39,10 +40,16 @@ func spawnBubble():
 		
 	var b = Bubble.instantiate()
 	b.start(marker.global_position, rotation, sprite.scale.x)
+	b.hitPlayer.connect(bubbleHit)
+	b.bubbleExpired.connect(clear_bubble_target)
 	get_tree().root.add_child(b)
 	animationPlayer.play("blowBubble")
 	
 	bubbleInUse = b
+
+func clear_bubble_target():
+	bubbleInUse = null
+	return
 
 func animationFinished(name: String):
 	if name == "punch":
@@ -106,8 +113,9 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		var collisionObject = collision.get_collider()
 		if collisionObject is Bubble and !isInBubble:
-			collisionObject.destroy()
-			bubbleHit()
+			pass
+			#collisionObject.destroy()
+			#bubbleHit()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -121,13 +129,13 @@ func _process(_delta: float) -> void:
 		bubbleTexture.hide()
 
 func on_new_level_entry(level: Level) -> void:
-	self.set_collision_layer_value(3, false)
+	#self.set_collision_layer_value(3, false)
 	self.set_collision_mask_value(3, false)
 
 	player_entering_new_level.emit(level.position)
 
 func on_new_level_entered(level: Level) -> void:
-	self.set_collision_layer_value(3, true)
+	#self.set_collision_layer_value(3, true)
 	self.set_collision_mask_value(3, true)
 
 	if self.currentLevel:

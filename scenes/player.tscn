@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dyfofdbd1axwv" path="res://assets/bubble.png" id="3_4sd01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2kro"]
-size = Vector2(64, 64)
+size = Vector2(20, 64)
 
 [sub_resource type="Animation" id="Animation_t8afm"]
 length = 0.001
@@ -118,11 +118,13 @@ region = Rect2(0, 64, 64, 64)
 radius = 15.0
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(-5, 0)
 collision_mask = 30
 script = ExtResource("1_23j3q")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_g2kro")
 
 [node name="playerTexture" type="Sprite2D" parent="."]
@@ -140,10 +142,10 @@ libraries = {
 texture = SubResource("AtlasTexture_ewhfb")
 
 [node name="marker" type="Marker2D" parent="."]
-position = Vector2(96, 0)
+position = Vector2(64, 0)
 
 [node name="KickArea" type="Area2D" parent="."]
-position = Vector2(65, 0)
+position = Vector2(32, 0)
 collision_layer = 0
 collision_mask = 48
 
