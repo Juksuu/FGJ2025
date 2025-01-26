@@ -4,10 +4,13 @@ extends Node2D
 @onready var player = $Player
 @onready var audio = $Audio
 
+@onready var global = $"/root/Globals"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	audio.startMusic()
+	global.gameStarted()
 	player.player_entering_new_level.connect(player_entering_new_level)
 
 

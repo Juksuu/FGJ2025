@@ -9,6 +9,8 @@ signal player_entering_new_level(levelPos: Vector2)
 @onready var bubbleTexture = $BubbleTexture
 @onready var audio = $Audio
 
+@onready var global = $"/root/Globals"
+
 @export var speed = 300.0
 @export var jump_speed = -400.0
 @export var mass: float = 1.00 # abstract value to dampen the floatiness in jump 
@@ -50,6 +52,8 @@ func spawnBubble():
 	b.bubbleExpired.connect(clear_bubble_target)
 	get_tree().root.add_child(b)
 	animationPlayer.play("blowBubble")
+	
+	global.useBubbel()
 	
 	bubbleInUse = b
 
@@ -160,6 +164,24 @@ func on_new_level_entry(level: Level) -> void:
 	player_entering_new_level.emit(level.position)
 
 func on_new_level_entered(level: Level) -> void:
+	#self.set_collision_layer_value(3, true)
+	self.set_collision_mask_value(3, true)
+
+	if self.currentLevel:
+		self.currentLevel.set_monitor_entry(true)
+
+	level.set_monitor_entry(false)
+	self.currentLevel = level
+
+func on_new_final_level_entry(level: FinalLevel) -> void:
+	#self.set_collision_layer_value(3, false)
+	self.set_collision_mask_value(3, false)
+	
+	velocity.y = jump_speed
+
+	player_entering_new_level.emit(level.position)
+
+func on_new_final_level_entered(level: FinalLevel) -> void:
 	#self.set_collision_layer_value(3, true)
 	self.set_collision_mask_value(3, true)
 
